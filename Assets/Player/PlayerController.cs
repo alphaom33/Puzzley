@@ -50,6 +50,9 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(JumpBuffer());
         }
+
+        child.localScale = CalcJuice();
+        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0) child.localScale = new Vector2(Mathf.Abs(child.localScale.x) * Mathf.Sign(Input.GetAxis("Horizontal")), child.localScale.y);
     }
 
     // Update is called once per frame
@@ -70,9 +73,6 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(Vector2.right * airSpeed * Input.GetAxis("Horizontal"));
             rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -airMaxSpeed, airMaxSpeed), Mathf.Clamp(rb.velocity.y, -maxFallSpeed, float.MaxValue));
         }
-
-        child.localScale = CalcJuice();
-        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0) child.localScale = new Vector2(Mathf.Abs(child.localScale.x) * Mathf.Sign(Input.GetAxis("Horizontal")), child.localScale.y);
     }
 
     private Vector2 CalcJuice()

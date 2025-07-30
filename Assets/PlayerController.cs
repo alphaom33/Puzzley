@@ -1,0 +1,108 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Rendering;
+
+public class PlayerController : MonoBehaviour
+{
+    [Header("Ground Movement")]
+    public float speed;
+    public float maxSpeed;
+    public float friction;
+
+    [Header("Air Movement")]
+    public float jumpForce;
+    public float airSpeed;
+    public float airMaxSpeed;
+
+    [Header("Jump")]
+    public float bufferWaitTime;
+    public float initialJumpForce;
+    public float boingJumpForce;
+    public float jumpTime;
+    public float maxJumpTime;
+    public float jumpingGravity;
+    public float fallingGravity;
+    public bool jumpBuffering;
+
+    private Rigidbody2D rb;
+
+    private IEnumerator joimp;
+
+    private bool IsFacingLeft;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    private float doVelStuf(float x)
+    {
+        float clamped = Mathf.Clamp(x, -maxSpeed, maxSpeed);
+        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) <= 0.1)
+        {
+            clamped *= friction;
+        }
+        return clamped;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && !jumpBuffering)
+        {
+            StartCoroutine(JumpBuffer());
+        }
+
+        rb.AddForce(Vector2.right * speed * Input.GetAxis("Horizontal"));
+        if (Input.GetAxis("Horizontal") < 0 && !IsFacingLeft) { transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z); IsFacingLeft = true; }
+        if (Input.GetAxis("Horizontal") > 0 && IsFacingLeft) { transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z); IsFacingLeft = false; }
+        rb.velocity = new Vector2(doVelStuf(rb.velocity.x), rb.velocity.y);
+    }
+
+    private IEnumerator JumpBuffer()
+    {
+        jumpBuffering = true;
+        for (float time = 0; jumpTime != 0; time += Time.deltaTime)
+        {
+            if (time > bufferWaitTime)
+            {
+                jumpBuffering = false;
+                yield break;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+        rb.AddForce(Vector2.up * initialJumpForce);
+        jumpBuffering = false;
+        if (joimp != null) StopCoroutine(joimp);
+        joimp = Joimp();
+        StartCoroutine(joimp);
+    }
+
+    private IEnumerator Joimp()
+    {
+        bool gone = false;
+        rb.gravityScale = jumpingGravity;
+        for (; Input.GetKey(KeyCode.Space) && jumpTime < maxJumpTime; jumpTime += Time.fixedDeltaTime)
+        {
+            if (!gone && jumpTime > Time.fixedDeltaTime * 3)
+            {
+                rb.AddForce(Vector2.up * boingJumpForce);
+                gone = true;
+            }
+            yield return new WaitForFixedUpdate();
+        }
+        rb.gravityScale = fallingGravity;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            jumpBuffering = false;
+            jumpTime = 0;
+            if (joimp != null) StopCoroutine(joimp);
+        }
+    }
+}

@@ -10,12 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6281131195479897891}
   - component: {fileID: 7065227038206262900}
-  - component: {fileID: 5952884666199334223}
   - component: {fileID: 7706013821491230410}
   - component: {fileID: 2719582329426575461}
   m_Layer: 0
-  m_Name: Player
-  m_TagString: Player
+  m_Name: Body
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,33 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5952884666199334223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6256979968003084052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e3309198ea972a4aaf17654d6bd5b85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onGround: 0
-  speed: 100
-  maxSpeed: 6
-  friction: 0.5
-  airSpeed: 20
-  airMaxSpeed: 6
-  maxFallSpeed: 100
-  bufferWaitTime: 0.2
-  initialJumpForce: 300
-  boingJumpForce: 200
-  jumpTime: 0
-  maxJumpTime: 0.3
-  jumpingGravity: 0
-  fallingGravity: 3
-  jumpBuffering: 0
 --- !u!50 &7706013821491230410
 Rigidbody2D:
   serializedVersion: 4
@@ -122,7 +94,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6256979968003084052}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -140,7 +112,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!61 &2719582329426575461
 BoxCollider2D:
   m_ObjectHideFlags: 0

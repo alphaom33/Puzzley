@@ -603,11 +603,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e3309198ea972a4aaf17654d6bd5b85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
-  maxSpeed: 0
-  jumpForce: 0
-  airSpeed: 0
-  airMaxSpeed: 0
+  onGround: 0
+  speed: 100
+  maxSpeed: 6
+  friction: 0.5
+  airSpeed: 30
+  airMaxSpeed: 6
+  maxFallSpeed: 100
   bufferWaitTime: 0.2
   initialJumpForce: 300
   boingJumpForce: 200

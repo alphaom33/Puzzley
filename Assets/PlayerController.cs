@@ -5,15 +5,17 @@ using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool onGround;
+
     [Header("Ground Movement")]
     public float speed;
     public float maxSpeed;
     public float friction;
 
     [Header("Air Movement")]
-    public float jumpForce;
     public float airSpeed;
     public float airMaxSpeed;
+    public float maxFallSpeed;
 
     [Header("Jump")]
     public float bufferWaitTime;
@@ -35,16 +37,6 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private float doVelStuf(float x)
-    {
-        float clamped = Mathf.Clamp(x, -maxSpeed, maxSpeed);
-        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) <= 0.1)
-        {
-            clamped *= friction;
-        }
-        return clamped;
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -53,8 +45,26 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(JumpBuffer());
         }
 
-        rb.AddForce(Vector2.right * speed * Input.GetAxis("Horizontal"));
-        rb.velocity = new Vector2(doVelStuf(rb.velocity.x), rb.velocity.y);
+        if (onGround)
+        {
+            rb.AddForce(Vector2.right * speed * Input.GetAxis("Horizontal"));
+            rb.velocity = new Vector2(DoVelStuf(rb.velocity.x), rb.velocity.y);
+        } 
+        else
+        {
+            rb.AddForce(Vector2.right * airSpeed * Input.GetAxis("Horizontal"));
+            rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -airMaxSpeed, airMaxSpeed), Mathf.Clamp(rb.velocity.y, -maxFallSpeed, float.MaxValue));
+        }
+    }
+
+    private float DoVelStuf(float x)
+    {
+        float clamped = Mathf.Clamp(x, -maxSpeed, maxSpeed);
+        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) <= 0.1)
+        {
+            clamped *= friction;
+        }
+        return clamped;
     }
 
     private IEnumerator JumpBuffer()
@@ -78,6 +88,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator Joimp()
     {
+        onGround = false;
         bool gone = false;
         rb.gravityScale = jumpingGravity;
         for (; Input.GetKey(KeyCode.Space) && jumpTime < maxJumpTime; jumpTime += Time.fixedDeltaTime)
@@ -96,6 +107,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
+            onGround = true;
             jumpBuffering = false;
             jumpTime = 0;
             if (joimp != null) StopCoroutine(joimp);

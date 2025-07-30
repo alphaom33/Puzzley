@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Ground Movement")]
     public float speed;
     public float maxSpeed;
+    public float friction;
 
     [Header("Air Movement")]
     public float jumpForce;
@@ -33,6 +35,16 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    private float doVelStuf(float x)
+    {
+        float clamped = Mathf.Clamp(x, -maxSpeed, maxSpeed);
+        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) <= 0.1)
+        {
+            clamped *= friction;
+        }
+        return clamped;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -40,6 +52,9 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(JumpBuffer());
         }
+
+        rb.AddForce(Vector2.right * speed * Input.GetAxis("Horizontal"));
+        rb.velocity = new Vector2(doVelStuf(rb.velocity.x), rb.velocity.y);
     }
 
     private IEnumerator JumpBuffer()

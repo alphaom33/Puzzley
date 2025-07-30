@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator joimp;
 
+    private bool IsFacingLeft;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,11 +51,15 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector2.right * speed * Input.GetAxis("Horizontal"));
             rb.velocity = new Vector2(DoVelStuf(rb.velocity.x), rb.velocity.y);
+            if (Input.GetAxis("Horizontal") < 0 && !IsFacingLeft) { transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z); IsFacingLeft = true; }
+            if (Input.GetAxis("Horizontal") > 0 && IsFacingLeft) { transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z); IsFacingLeft = false; }
         } 
         else
         {
             rb.AddForce(Vector2.right * airSpeed * Input.GetAxis("Horizontal"));
             rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -airMaxSpeed, airMaxSpeed), Mathf.Clamp(rb.velocity.y, -maxFallSpeed, float.MaxValue));
+            if (Input.GetAxis("Horizontal") < 0 && !IsFacingLeft) { transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z); IsFacingLeft = true; }
+            if (Input.GetAxis("Horizontal") > 0 && IsFacingLeft) { transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z); IsFacingLeft = false; }
         }
     }
 

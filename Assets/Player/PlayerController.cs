@@ -6,6 +6,7 @@ using UnityEngine.Rendering;
 public class PlayerController : MonoBehaviour
 {
     public bool onGround;
+    public float coyoteTime;
 
     [Header("Ground Movement")]
     public float speed;
@@ -26,6 +27,12 @@ public class PlayerController : MonoBehaviour
     public float jumpingGravity;
     public float fallingGravity;
     public bool jumpBuffering;
+
+    [Header("Juice")]
+    public Transform child;
+    public Vector2 juiceMultipliers;
+    public ParticleSystem movementParticles;
+    public ParticleSystem landingParticles;
 
     private Rigidbody2D rb;
 
@@ -49,12 +56,35 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector2.right * speed * Input.GetAxis("Horizontal"));
             rb.velocity = new Vector2(DoVelStuf(rb.velocity.x), rb.velocity.y);
+
+            if (Mathf.Abs(rb.velocity.x) > maxSpeed / 2.0f && Random.Range(0, 5) == 0)
+            {
+                movementParticles.Emit(1);
+            }
         } 
         else
         {
             rb.AddForce(Vector2.right * airSpeed * Input.GetAxis("Horizontal"));
             rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -airMaxSpeed, airMaxSpeed), Mathf.Clamp(rb.velocity.y, -maxFallSpeed, float.MaxValue));
         }
+
+        child.localScale = CalcJuice();
+    }
+
+    private Vector2 CalcJuice()
+    {
+        Vector2 juice = Vector2.one;
+
+        if (onGround)
+        {
+            float xJuice = juiceMultipliers.x * Mathf.Abs(rb.velocity.x / maxSpeed);
+            juice *= new Vector2(1 + xJuice, 1 - xJuice);
+        }
+
+        float yJuice = juiceMultipliers.y * Mathf.Abs(rb.velocity.y / maxFallSpeed);
+        juice *= new Vector2(1 - yJuice, 1 + yJuice);
+
+        return juice;
     }
 
     private float DoVelStuf(float x)
@@ -111,6 +141,19 @@ public class PlayerController : MonoBehaviour
             jumpBuffering = false;
             jumpTime = 0;
             if (joimp != null) StopCoroutine(joimp);
+
+            landingParticles.Play();
         }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        StartCoroutine(CoyoteTime());
+    }
+
+    IEnumerator CoyoteTime()
+    {
+        yield return new WaitForSeconds(coyoteTime);
+        onGround = false;
     }
 }

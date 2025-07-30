@@ -38,22 +38,23 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator joimp;
 
-    private bool IsFacingLeft;
-
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !jumpBuffering)
         {
             StartCoroutine(JumpBuffer());
         }
+    }
 
+    // Update is called once per frame
+    void FixedUpdate()
+    {
         if (onGround)
         {
             rb.AddForce(Vector2.right * speed * Input.GetAxis("Horizontal"));
@@ -63,23 +64,20 @@ public class PlayerController : MonoBehaviour
             {
                 movementParticles.Emit(1);
             }
-            if (Input.GetAxis("Horizontal") < 0 && !IsFacingLeft) { transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z); IsFacingLeft = true; }
-            if (Input.GetAxis("Horizontal") > 0 && IsFacingLeft) { transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z); IsFacingLeft = false; }
         } 
         else
         {
             rb.AddForce(Vector2.right * airSpeed * Input.GetAxis("Horizontal"));
             rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -airMaxSpeed, airMaxSpeed), Mathf.Clamp(rb.velocity.y, -maxFallSpeed, float.MaxValue));
-            if (Input.GetAxis("Horizontal") < 0 && !IsFacingLeft) { transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z); IsFacingLeft = true; }
-            if (Input.GetAxis("Horizontal") > 0 && IsFacingLeft) { transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z); IsFacingLeft = false; }
         }
 
         child.localScale = CalcJuice();
+        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0) child.localScale = new Vector2(Mathf.Abs(child.localScale.x) * Mathf.Sign(Input.GetAxis("Horizontal")), child.localScale.y);
     }
 
     private Vector2 CalcJuice()
     {
-        Vector2 juice = Vector2.one;
+        Vector2 juice = new Vector2(Mathf.Sign(child.localScale.x), 1);
 
         if (onGround)
         {

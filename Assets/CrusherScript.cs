@@ -19,14 +19,13 @@ public class CrusherScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        var Player = collision.gameObject.GetComponent<PlayerController>(); // tries to get the PlayerController script from the collided object
-        if (Player != null) Player.KillPlayer(); // if it succseeds, it means it hit the player and they die
-        else if (collision.gameObject.tag == "Body" || collision.gameObject.tag == "Ground") // if it hit a body or the ground, it gets ready to rise in a few secconds
+        if (collision.gameObject.CompareTag("Player"))
         {
-
+            GameManager.GetInstance().KillPlayer();
+        }
+        else if (collision.gameObject.CompareTag("Body") || collision.gameObject.CompareTag("Ground")) // if it hit a body or the ground, it gets ready to rise in a few secconds
+        {
             StartCoroutine(Rise()); //starts to rise
-
-            
         }
     }
 

@@ -126,6 +126,7 @@ public class PlayerController : MonoBehaviour
         onGround = false;
         bool gone = false;
         rb.gravityScale = jumpingGravity;
+        rb.velocity *= Vector2.right;
         for (; Input.GetKey(KeyCode.Space) && jumpTime < maxJumpTime; jumpTime += Time.fixedDeltaTime)
         {
             if (!gone && jumpTime > Time.fixedDeltaTime * 3)
@@ -138,20 +139,17 @@ public class PlayerController : MonoBehaviour
         rb.gravityScale = fallingGravity;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void HitGround()
     {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Body"))
-        {
-            onGround = true;
-            jumpBuffering = false;
-            jumpTime = 0;
-            if (joimp != null) StopCoroutine(joimp);
+        onGround = true;
+        jumpBuffering = false;
+        jumpTime = 0;
+        if (joimp != null) StopCoroutine(joimp);
 
-            landingParticles.Play();
-        }
+        landingParticles.Play();
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void LeftGround()
     {
         StartCoroutine(CoyoteTime());
     }
@@ -164,9 +162,4 @@ public class PlayerController : MonoBehaviour
         jumpTime = maxJumpTime;
     }
 
-    public void KillPlayer()
-    {
-        //this is where the player will die, and you can spawn the body
-        Debug.Log("you have died");
-    }
 }

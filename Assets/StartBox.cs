@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class StartBox : MonoBehaviour
 {
+    private void Start()
+    {
+        GameManager.GetInstance();
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(.4f, .5f, 1);

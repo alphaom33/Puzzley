@@ -44,7 +44,17 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-
+    private void Awake()
+    {
+        StartCoroutine(EnableDeath());
+        
+        
+    }
+    private IEnumerator EnableDeath()
+    {
+        yield return new WaitForSeconds(.1f);
+        GameObject.FindWithTag("GameManager").GetComponent<GameManager>().CanDie = true;
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !jumpBuffering)

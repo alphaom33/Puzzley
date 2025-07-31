@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4e0cb27eb7ddcf4449168aa7ba2c9a7b
+guid: 94fbd7e9a04112a488dcafccc37a0492
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Crusher
+  - name: CrusherExtension
     originalName: 
-    pivot: {x: 0.5, y: -0.45714286}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 32
-      height: 35
-    spriteID: 4b9d6b2a3eab1ed4e85bfc7032da5bd8
+      width: 6
+      height: 13
+    spriteID: 215c9b1e89488b6478838be33183e5ab
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,25 +144,25 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -178382730
-    name: Crusher
+    guid: -962851487
+    name: CrusherExtension
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Crusher
+    - name: CrusherExtension
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 16
-        y: 16
-        width: 32
-        height: 35
-      spriteId: 4b9d6b2a3eab1ed4e85bfc7032da5bd8
+        x: 0
+        y: 0
+        width: 6
+        height: 13
+      spriteId: 215c9b1e89488b6478838be33183e5ab
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 64, y: 64}
+  canvasSize: {x: 6, y: 13}

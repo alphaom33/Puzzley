@@ -160,4 +160,9 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(coyoteTime);
         onGround = false;
     }
+
+    public void KillPlayer()
+    {
+        //this is where the player will die, and you can spawn the body
+    }
 }

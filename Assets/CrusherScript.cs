@@ -1,0 +1,49 @@
+using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CrusherScript : MonoBehaviour
+{
+   public Rigidbody2D Rigidbody2D; // the crusher's rigidbody
+   
+    
+    public float CrusherUpAmount; // the amount the crusher goes upwards, after crushing
+    public float CrusherInterval; // the interval between crushes
+    public float CrusherTimeDown; // the time the crusher stays down
+    void Start()
+    {
+        Rigidbody2D.bodyType = RigidbodyType2D.Static;
+        StartCoroutine(Crush());
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        var Player = collision.gameObject.GetComponent<PlayerController>();
+        if (Player != null) Debug.Log("ded");
+        else if (collision.gameObject.tag == "Body" || collision.gameObject.tag == "Ground")
+        {
+
+            StartCoroutine(Rise()); 
+
+            
+        }
+    }
+
+    private IEnumerator Crush()
+    {
+        yield return new WaitForSeconds(CrusherInterval);
+        
+        
+        Rigidbody2D.bodyType = RigidbodyType2D.Dynamic; // allows the crusher to fall down
+    }
+    private IEnumerator Rise()
+    {
+        yield return new WaitForSeconds (CrusherTimeDown); // keeps the crush down for as long as you want
+       
+        transform.DOMoveY(CrusherUpAmount,1); // raises the crusher/
+
+        Rigidbody2D.bodyType = RigidbodyType2D.Static;// makes it so the crusher stays in the air, and then counts down tell it crushes again
+        StartCoroutine(Crush()); // allows crusher to come down, after the interval
+    }
+}

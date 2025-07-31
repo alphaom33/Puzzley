@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
     public Vector2 juiceMultipliers;
     public ParticleSystem movementParticles;
     public ParticleSystem landingParticles;
+    public float minSplash;
+    public float lastVel;
 
     private Rigidbody2D rb;
 
@@ -84,6 +86,8 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(Vector2.right * airSpeed * Input.GetAxis("Horizontal"));
             rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -airMaxSpeed, airMaxSpeed), Mathf.Clamp(rb.velocity.y, -maxFallSpeed, float.MaxValue));
         }
+
+        lastVel = rb.velocity.y;
     }
 
     private Vector2 CalcJuice()
@@ -134,10 +138,10 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Joimp()
     {
         onGround = false;
-        bool gone = false;
         rb.gravityScale = jumpingGravity;
         rb.velocity *= Vector2.right;
-        for (; Input.GetKey(KeyCode.Space) && jumpTime < maxJumpTime; jumpTime += Time.fixedDeltaTime)
+
+        for (bool gone = false; Input.GetKey(KeyCode.Space) && jumpTime < maxJumpTime; jumpTime += Time.fixedDeltaTime)
         {
             if (!gone && jumpTime > Time.fixedDeltaTime * 3)
             {
@@ -156,7 +160,7 @@ public class PlayerController : MonoBehaviour
         jumpTime = 0;
         if (joimp != null) StopCoroutine(joimp);
 
-        landingParticles.Play();
+        if (lastVel < -minSplash) landingParticles.Emit((int)(-lastVel - minSplash));
     }
 
     private void LeftGround()

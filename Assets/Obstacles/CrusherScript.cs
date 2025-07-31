@@ -5,34 +5,36 @@ using UnityEngine;
 
 public class CrusherScript : MonoBehaviour
 {
-   public Rigidbody2D Rigidbody2D; // the crusher's rigidbody
-   
-    
-    public float CrusherUpAmount; // the amount the crusher goes upwards, after crushing
-    public float CrusherInterval; // the interval between crushes
-    public float CrusherTimeDown; // the time the crusher stays down
 
-    public Transform BoxCast;
+
+   public Rigidbody2D Rigidbody2D;
+   
+    public float CrusherUpAmount;
+    public float CrusherInterval;
+    public float CrusherTimeDown;
+
     void Start()
     {
-        
-        Rigidbody2D.bodyType = RigidbodyType2D.Static;// crusher starts up, and crushes in a few secconds
+        Rigidbody2D.bodyType = RigidbodyType2D.Static;
         StartCoroutine(Crush());
-        
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        var Player = collision.gameObject.GetComponent<PlayerController>(); // tries to get the PlayerController script from the collided object
-        if (Player != null) Player.KillPlayer(); // if it succseeds, it means it hit the player and they die
-        else if (collision.gameObject.tag == "Body" || collision.gameObject.tag == "Ground") // if it hit a body or the ground, it gets ready to rise in a few secconds
+        if (collision.CompareTag("Player"))
         {
-            StartCoroutine(Rise()); //starts to rise
+            GameManager.GetInstance().KillPlayer();
+        }
+        else if (collision.gameObject.CompareTag("Body") || collision.gameObject.CompareTag("Ground"))
+        {
+            StartCoroutine(Rise());
+
         }
     }
 
     private IEnumerator Crush()
     {
+
         yield return new WaitForSeconds(CrusherInterval); // time it stays up before coming down to crush
         
         
@@ -46,5 +48,10 @@ public class CrusherScript : MonoBehaviour
 
         Rigidbody2D.bodyType = RigidbodyType2D.Static;// makes it so the crusher stays in the air, and then counts down tell it crushes again
         StartCoroutine(Crush()); // allows crusher to come down, after the interval
+
+        yield return new WaitForSeconds(CrusherInterval);
+        Rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
     }
+
+   
 }

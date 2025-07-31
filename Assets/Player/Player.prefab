@@ -10047,6 +10047,8 @@ MonoBehaviour:
   juiceMultipliers: {x: 0.2, y: 0.3}
   movementParticles: {fileID: 117437212697918065}
   landingParticles: {fileID: 7409635103208964531}
+  minSplash: 5
+  lastVel: 0
 --- !u!50 &7706013821491230410
 Rigidbody2D:
   serializedVersion: 4

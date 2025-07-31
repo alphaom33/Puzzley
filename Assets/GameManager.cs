@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     public void KillPlayer()
     {
         if (!canDie) return;
-
+        canDie = false;
         Instantiate(body, currentPlayer.transform.position, Quaternion.identity);
         Destroy(currentPlayer);
         SpawnPlayer();

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -158,7 +159,9 @@ public class PlayerController : MonoBehaviour
     IEnumerator CoyoteTime()
     {
         yield return new WaitForSeconds(coyoteTime);
+        if (jumpTime > 0) yield break;
         onGround = false;
+        jumpTime = maxJumpTime;
     }
 
     public void KillPlayer()

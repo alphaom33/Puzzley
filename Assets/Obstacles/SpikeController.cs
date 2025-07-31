@@ -8,7 +8,7 @@ public class SpikeController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            GameObject.FindWithTag("GameManager").GetComponent<GameManager>().KillPlayer();
+            GameManager.GetInstance().KillPlayer();
         }
     }
 }

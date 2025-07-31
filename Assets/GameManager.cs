@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,18 +12,34 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject body;
 
+    [Serializable]
+    public class Level
+    {
+        public string sceneName;
+    }
+
+    public List<Level> levels;
+
     private GameObject start;
     private GameObject currentPlayer;
     private GameObject MainCamera;
 
-    public bool CanDie;
-
     private void Start()
     {
-        MainCamera = GameObject.FindWithTag("MainCamera");
-        CanDie = true;
         start = GameObject.FindWithTag("Start");
         SpawnPlayer();
+    }
+
+    public void LoadLevel(int index)
+    {
+        SceneManager.LoadScene(levels[index].sceneName);
+        StartCoroutine(oh());
+        IEnumerator oh()
+        {
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
+            InitLevel();
+        }
     }
 
     private void SpawnPlayer()
@@ -32,13 +51,8 @@ public class GameManager : MonoBehaviour
 
     public void KillPlayer()
     {
-        if (CanDie)
-        {
-            CanDie = false;
-            Instantiate(body, currentPlayer.transform.position, Quaternion.identity);
-            Destroy(currentPlayer);
-            SpawnPlayer();
-        }
-       
+        Instantiate(body, currentPlayer.transform.position, Quaternion.identity);
+        Destroy(currentPlayer);
+        SpawnPlayer();
     }
 }

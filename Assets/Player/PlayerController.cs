@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator EnableDeath()
     {
         yield return new WaitForSeconds(.1f);
-        GameObject.FindWithTag("GameManager").GetComponent<GameManager>().CanDie = true;
+        GameManager.GetInstance().canDie = true;
     }
     private void Update()
     {

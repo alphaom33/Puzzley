@@ -7,10 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    
-    
     public GameObject player;
     public GameObject body;
+
+    public bool canDie;
 
     [Serializable]
     public class Level
@@ -21,10 +21,19 @@ public class GameManager : MonoBehaviour
     public List<Level> levels;
 
     private GameObject start;
-    private GameObject currentPlayer;
-    private GameObject MainCamera;
+    public GameObject currentPlayer;
 
-    private void Start()
+    private static GameManager instance;
+    public static GameManager GetInstance()
+    {
+        if (instance != null) return instance;
+
+        instance = Instantiate((GameObject)Resources.Load("GameManager")).GetComponent<GameManager>();
+        instance.InitLevel();
+        return instance;
+    }
+
+    private void InitLevel()
     {
         start = GameObject.FindWithTag("Start");
         SpawnPlayer();
@@ -45,12 +54,12 @@ public class GameManager : MonoBehaviour
     private void SpawnPlayer()
     {
         currentPlayer = Instantiate(player, start.transform.position, Quaternion.identity);
-        MainCamera.GetComponent<FollowPlayer>().Player = currentPlayer.transform;
-        
     }
 
     public void KillPlayer()
     {
+        if (!canDie) return;
+
         Instantiate(body, currentPlayer.transform.position, Quaternion.identity);
         Destroy(currentPlayer);
         SpawnPlayer();

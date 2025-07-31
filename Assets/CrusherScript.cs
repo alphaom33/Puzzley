@@ -13,18 +13,18 @@ public class CrusherScript : MonoBehaviour
     public float CrusherTimeDown; // the time the crusher stays down
     void Start()
     {
-        Rigidbody2D.bodyType = RigidbodyType2D.Static;
+        Rigidbody2D.bodyType = RigidbodyType2D.Static;// crusher starts up, and crushes in a few secconds
         StartCoroutine(Crush());
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        var Player = collision.gameObject.GetComponent<PlayerController>();
-        if (Player != null) Debug.Log("ded");
-        else if (collision.gameObject.tag == "Body" || collision.gameObject.tag == "Ground")
+        var Player = collision.gameObject.GetComponent<PlayerController>(); // tries to get the PlayerController script from the collided object
+        if (Player != null) Player.KillPlayer(); // if it succseeds, it means it hit the player and they die
+        else if (collision.gameObject.tag == "Body" || collision.gameObject.tag == "Ground") // if it hit a body or the ground, it gets ready to rise in a few secconds
         {
 
-            StartCoroutine(Rise()); 
+            StartCoroutine(Rise()); //starts to rise
 
             
         }
@@ -32,7 +32,7 @@ public class CrusherScript : MonoBehaviour
 
     private IEnumerator Crush()
     {
-        yield return new WaitForSeconds(CrusherInterval);
+        yield return new WaitForSeconds(CrusherInterval); // time it stays up before coming down to crush
         
         
         Rigidbody2D.bodyType = RigidbodyType2D.Dynamic; // allows the crusher to fall down

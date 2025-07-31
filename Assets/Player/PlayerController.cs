@@ -164,5 +164,6 @@ public class PlayerController : MonoBehaviour
     public void KillPlayer()
     {
         //this is where the player will die, and you can spawn the body
+        Debug.Log("you have died");
     }
 }

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+using Cinemachine;
+
 public class GameManager : MonoBehaviour
 {
     public GameObject player;
@@ -87,12 +89,14 @@ public class GameManager : MonoBehaviour
     private void SpawnPlayer()
     {
         currentPlayer = Instantiate(player, start.transform.position, Quaternion.identity);
+        GameObject.FindWithTag("MainCamera").GetComponent<CinemachineVirtualCamera>().Follow = currentPlayer.transform;
     }
 
     public void KillPlayer()
     {
         if (!canDie) return;
         canDie = false;
+        canMove = false;
         Instantiate(body, currentPlayer.transform.position, Quaternion.identity);
         Destroy(currentPlayer);
         SpawnPlayer();

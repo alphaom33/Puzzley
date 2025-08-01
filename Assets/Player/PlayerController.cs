@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(.1f);
         GameManager.GetInstance().canDie = true;
+        yield return new WaitWhile(() => Input.GetAxisRaw("Horizontal") != 0);
+        GameManager.GetInstance().canMove = true;
     }
 
     private void Update()
@@ -71,20 +73,23 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (onGround)
+        if (GameManager.GetInstance().canMove)
         {
-            rb.AddForce(Vector2.right * speed * Input.GetAxis("Horizontal"));
-            rb.velocity = new Vector2(DoVelStuf(rb.velocity.x), rb.velocity.y);
-
-            if (Mathf.Abs(rb.velocity.x) > maxSpeed / 2.0f && Random.Range(0, 5) == 0)
+            if (onGround)
             {
-                movementParticles.Emit(1);
+                rb.AddForce(Vector2.right * speed * Input.GetAxis("Horizontal"));
+                rb.velocity = new Vector2(DoVelStuf(rb.velocity.x), rb.velocity.y);
+
+                if (Mathf.Abs(rb.velocity.x) > maxSpeed / 2.0f && Random.Range(0, 5) == 0)
+                {
+                    movementParticles.Emit(1);
+                }
             }
-        } 
-        else
-        {
-            rb.AddForce(Vector2.right * airSpeed * Input.GetAxis("Horizontal"));
-            rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -airMaxSpeed, airMaxSpeed), Mathf.Clamp(rb.velocity.y, -maxFallSpeed, float.MaxValue));
+            else
+            {
+                rb.AddForce(Vector2.right * airSpeed * Input.GetAxis("Horizontal"));
+                rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -airMaxSpeed, airMaxSpeed), Mathf.Clamp(rb.velocity.y, -maxFallSpeed, float.MaxValue));
+            }
         }
 
         lastVel = rb.velocity.y;

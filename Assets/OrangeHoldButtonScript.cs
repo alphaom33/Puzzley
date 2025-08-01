@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class OrangeHoldButtonScript : MonoBehaviour
@@ -10,8 +11,10 @@ public class OrangeHoldButtonScript : MonoBehaviour
 
     public GameObject[] Listeners;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private bool BodyOnButton;
+    private void OnTriggerEnter2D(Collider2D collision) 
     {
+       if (collision.gameObject.CompareTag("Body")) BodyOnButton = true;
         SpriteRenderer.sprite = OnSprite;
         foreach (var listener in Listeners)
         {
@@ -22,10 +25,19 @@ public class OrangeHoldButtonScript : MonoBehaviour
     
     private void OnTriggerExit2D(Collider2D collision)
     {
-        SpriteRenderer.sprite = OffSprite;
-        foreach (var listener in Listeners)
+        if (collision.gameObject.CompareTag("Body")) BodyOnButton = false;
+
+
+
+        if (!BodyOnButton)
         {
-            listener.BroadcastMessage("ButtonUnPressed");
+            SpriteRenderer.sprite = OffSprite;
+            foreach (var listener in Listeners)
+            {
+                if (listener != null) listener.BroadcastMessage("ButtonUnPressed"); 
+            }
+
         }
+        
     }
 }

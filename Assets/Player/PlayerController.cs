@@ -34,32 +34,32 @@ public class PlayerController : MonoBehaviour
     public Vector2 juiceMultipliers;
     public ParticleSystem movementParticles;
     public ParticleSystem landingParticles;
+    public ParticleSystem jumpingParticles;
     public float minSplash;
     public float lastVel;
 
     private Rigidbody2D rb;
-
-    private IEnumerator joimp;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
+
     private void Awake()
     {
         StartCoroutine(EnableDeath());
-        
-        
     }
+
     private IEnumerator EnableDeath()
     {
         yield return new WaitForSeconds(.1f);
         GameManager.GetInstance().canDie = true;
     }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !jumpBuffering)
+        if (Input.GetKeyDown(KeyCode.Space) && !jumpBuffering && GameManager.GetInstance().canMove)
         {
             StartCoroutine(JumpBuffer());
         }
@@ -130,26 +130,23 @@ public class PlayerController : MonoBehaviour
         }
         rb.AddForce(Vector2.up * initialJumpForce);
         jumpBuffering = false;
-        if (joimp != null) StopCoroutine(joimp);
-        joimp = Joimp();
-        StartCoroutine(joimp);
+        StartCoroutine(Joimp());
     }
 
     private IEnumerator Joimp()
     {
+        jumpingParticles.Play();
         onGround = false;
         rb.gravityScale = jumpingGravity;
         rb.velocity *= Vector2.right;
 
-        for (bool gone = false; Input.GetKey(KeyCode.Space) && jumpTime < maxJumpTime; jumpTime += Time.fixedDeltaTime)
-        {
-            if (!gone && jumpTime > Time.fixedDeltaTime * 3)
-            {
-                rb.AddForce(Vector2.up * boingJumpForce);
-                gone = true;
-            }
-            yield return new WaitForFixedUpdate();
-        }
+        yield return new WaitForSeconds(Time.fixedDeltaTime * 3);
+        if (!Input.GetKey(KeyCode.Space)) goto cleanup;
+
+        rb.AddForce(Vector2.up * boingJumpForce);
+        for (float jumpTime = Time.fixedDeltaTime * 3; Input.GetKey(KeyCode.Space) && jumpTime < maxJumpTime; jumpTime += Time.fixedDeltaTime) yield return new WaitForFixedUpdate();
+
+        cleanup:
         rb.gravityScale = fallingGravity;
     }
 
@@ -158,7 +155,6 @@ public class PlayerController : MonoBehaviour
         onGround = true;
         jumpBuffering = false;
         jumpTime = 0;
-        if (joimp != null) StopCoroutine(joimp);
 
         if (lastVel < -minSplash) landingParticles.Emit((int)(-lastVel - minSplash));
     }

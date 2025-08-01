@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5126921933300126354
+--- !u!1 &9126182224724426355
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4139784874560750354}
-  - component: {fileID: 1876468618296182869}
+  - component: {fileID: 3884865468155001704}
+  - component: {fileID: 4526643218724905673}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4139784874560750354
+--- !u!4 &3884865468155001704
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5126921933300126354}
+  m_GameObject: {fileID: 9126182224724426355}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,13 +32,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1876468618296182869
+--- !u!114 &4526643218724905673
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5126921933300126354}
+  m_GameObject: {fileID: 9126182224724426355}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 823acff22de748447a7a2f24f19bdd08, type: 3}
@@ -46,5 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 6256979968003084052, guid: 934fc3f5f797b9f49bb8e78b93c772f5, type: 3}
   body: {fileID: 6256979968003084052, guid: 914353cf789614e49ad76fc71d6dd410, type: 3}
+  pauseMenuPrefab: {fileID: 5558114249714339343, guid: 7da85e42081d52f4eb94bf984bef5fc1, type: 3}
+  pauseMenu: {fileID: 0}
+  canDie: 0
+  canMove: 1
   levels:
   - sceneName: SampleScene
+  start: {fileID: 0}
+  currentPlayer: {fileID: 0}

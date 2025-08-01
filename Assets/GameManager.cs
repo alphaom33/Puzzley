@@ -10,7 +10,11 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject body;
 
+    public GameObject pauseMenuPrefab;
+    public GameObject pauseMenu;
+
     public bool canDie;
+    public bool canMove = true;
 
     [Serializable]
     public class Level
@@ -20,35 +24,64 @@ public class GameManager : MonoBehaviour
 
     public List<Level> levels;
 
-    private GameObject start;
+    public GameObject start;
     public GameObject currentPlayer;
 
     private static GameManager instance;
     public static GameManager GetInstance()
     {
-        if (instance != null) return instance;
+        if (instance != null)
+        {
+            return instance;
+        }
 
-        instance = Instantiate((GameObject)Resources.Load("GameManager")).GetComponent<GameManager>();
-        instance.InitLevel();
-        return instance;
+        GameManager tmp = Instantiate((GameObject)Resources.Load("GameManager")).GetComponent<GameManager>();
+        tmp.StartCoroutine(tmp.InitLevel());
+        DontDestroyOnLoad(tmp);
+        return tmp;
     }
 
-    private void InitLevel()
+    public void Start()
     {
-        start = GameObject.FindWithTag("Start");
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        pauseMenuPrefab = (GameObject)Resources.Load("PauseMenu");
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && SceneManager.GetActiveScene().name != "StartMenu")
+        {
+            if (pauseMenu == null)
+            {
+                pauseMenu = Instantiate(pauseMenuPrefab);
+                canMove = false;
+            }
+            else
+            {
+                pauseMenu.GetComponent<PauseMenu>().UnPause();
+            }
+        }
+    }
+
+    private IEnumerator InitLevel()
+    {
+        canMove = true;
+        for (; start == null; start = GameObject.FindWithTag("Start"))
+        {
+            yield return new WaitForEndOfFrame();
+        }
         SpawnPlayer();
     }
 
     public void LoadLevel(int index)
     {
         SceneManager.LoadScene(levels[index].sceneName);
-        StartCoroutine(oh());
-        IEnumerator oh()
-        {
-            yield return new WaitForEndOfFrame();
-            yield return new WaitForEndOfFrame();
-            InitLevel();
-        }
+        StartCoroutine(InitLevel());
     }
 
     private void SpawnPlayer()

@@ -13,6 +13,6 @@ public class GroundCheck : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (CollidingPlatform(collision)) SendMessageUpwards("LeftGround");
+        if (CollidingPlatform(collision) && gameObject.activeInHierarchy) SendMessageUpwards("LeftGround");
     }
 }

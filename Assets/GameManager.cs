@@ -18,12 +18,6 @@ public class GameManager : MonoBehaviour
     public bool canDie;
     public bool canMove = true;
 
-    [Serializable]
-    public class Level
-    {
-        public string sceneName;
-    }
-
     public List<Level> levels;
 
     public GameObject start;

@@ -38,6 +38,11 @@ public class PlayerController : MonoBehaviour
     public float minSplash;
     public float lastVel;
 
+    [Header("Sound")]
+    public AudioSource jumpSound;
+    public AudioSource landingSound;
+    public AudioSource walkingSound;
+
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -79,6 +84,11 @@ public class PlayerController : MonoBehaviour
             {
                 rb.AddForce(Vector2.right * speed * Input.GetAxis("Horizontal"));
                 rb.velocity = new Vector2(DoVelStuf(rb.velocity.x), rb.velocity.y);
+
+                if (Mathf.Abs(rb.velocity.x) > 0.1f) 
+                {
+                    if (!walkingSound.isPlaying) walkingSound.Play();
+                }
 
                 if (Mathf.Abs(rb.velocity.x) > maxSpeed / 2.0f && Random.Range(0, 5) == 0)
                 {
@@ -141,6 +151,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Joimp()
     {
         jumpingParticles.Play();
+        Instantiate(jumpSound);
         onGround = false;
         rb.gravityScale = jumpingGravity;
         rb.velocity *= Vector2.right;
@@ -157,11 +168,12 @@ public class PlayerController : MonoBehaviour
 
     private void HitGround()
     {
+        if (onGround == false && GameManager.GetInstance().canMove) Instantiate(landingSound);
+        if (lastVel < -minSplash) landingParticles.Emit((int)(-lastVel - minSplash));
+
         onGround = true;
         jumpBuffering = false;
         jumpTime = 0;
-
-        if (lastVel < -minSplash) landingParticles.Emit((int)(-lastVel - minSplash));
     }
 
     private void LeftGround()

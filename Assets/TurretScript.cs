@@ -8,6 +8,7 @@ public class TurretScript : MonoBehaviour
     public GameObject Bullet;
     private bool CanShoot = true;
     public Transform SpawnPoint;
+    private bool ButtonIsPressed;
 
     public float Direction; // -1 = left 1 = right
     public float Speed;
@@ -28,6 +29,14 @@ public class TurretScript : MonoBehaviour
     private IEnumerator Timer ()
     {
         yield return new WaitForSeconds(RateOfFire);
-        CanShoot = true;
+        if(!ButtonIsPressed) CanShoot = true;
+    }
+    public void ButtonPressed()
+    {
+        ButtonIsPressed = true;
+    }
+    public void ButtonUnPressed()
+    {
+        ButtonIsPressed = false;
     }
 }

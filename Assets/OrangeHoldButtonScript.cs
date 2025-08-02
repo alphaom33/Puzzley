@@ -11,7 +11,13 @@ public class OrangeHoldButtonScript : MonoBehaviour
 
     public GameObject[] Listeners;
 
-    private bool BodyOnButton;
+    private bool BodyOnButton = false;
+
+    private void Start()
+    {
+        Physics.IgnoreLayerCollision(7,6);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision) 
     {
        if (collision.gameObject.CompareTag("Body")) BodyOnButton = true;
@@ -25,19 +31,18 @@ public class OrangeHoldButtonScript : MonoBehaviour
     
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Body")) BodyOnButton = false;
+        
 
 
 
-        if (!BodyOnButton)
-        {
+        
             SpriteRenderer.sprite = OffSprite;
             foreach (var listener in Listeners)
             {
                 if (listener != null) listener.BroadcastMessage("ButtonUnPressed"); 
             }
 
-        }
+        
         
     }
 }

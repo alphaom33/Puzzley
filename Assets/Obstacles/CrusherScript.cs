@@ -15,6 +15,7 @@ public class CrusherScript : MonoBehaviour
 
     void Start()
     {
+        Physics.IgnoreLayerCollision(6,7);
         Rigidbody2D.bodyType = RigidbodyType2D.Static;
         StartCoroutine(Crush());
     }

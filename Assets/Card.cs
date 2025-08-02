@@ -6,6 +6,8 @@ using TMPro;
 
 public class Card : MonoBehaviour
 {
+    public Color enabledColor;
+    public Color disabledColor;
 
     public void Awake() {
         GetComponentInChildren<Button>().onClick.AddListener(GetComponentInParent<Carousel>().Go);
@@ -17,5 +19,6 @@ public class Card : MonoBehaviour
         Button button = GetComponentInChildren<Button>();
         button.interactable = enabled;
         button.GetComponentInChildren<TMP_Text>().text = enabled ? level.displayName : "Locked";
+        button.GetComponent<Image>().color = enabled ? enabledColor : disabledColor;
     }
 }

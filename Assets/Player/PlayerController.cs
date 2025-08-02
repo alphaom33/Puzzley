@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     public bool onGround;
     public float coyoteTime;
 
+    public Collider2D smallBox;
+    public Collider2D largeBox;
+
     [Header("Ground Movement")]
     public float speed;
     public float maxSpeed;
@@ -49,6 +52,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        smallBox = GetComponents<Collider2D>()[0];
+        largeBox = GetComponents<Collider2D>()[1];
     }
 
     private void Awake()
@@ -134,7 +139,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator JumpBuffer()
     {
         jumpBuffering = true;
-        for (float time = 0; jumpTime != 0; time += Time.deltaTime)
+        for (float time = 0; !onGround; time += Time.deltaTime)
         {
             if (time > bufferWaitTime)
             {
@@ -160,7 +165,7 @@ public class PlayerController : MonoBehaviour
         if (!Input.GetKey(KeyCode.Space)) goto cleanup;
 
         rb.AddForce(Vector2.up * boingJumpForce);
-        for (float jumpTime = Time.fixedDeltaTime * 3; Input.GetKey(KeyCode.Space) && jumpTime < maxJumpTime; jumpTime += Time.fixedDeltaTime) yield return new WaitForFixedUpdate();
+        for (jumpTime = Time.fixedDeltaTime * 3; Input.GetKey(KeyCode.Space) && jumpTime < maxJumpTime; jumpTime += Time.fixedDeltaTime) yield return new WaitForFixedUpdate();
 
         cleanup:
         rb.gravityScale = fallingGravity;
@@ -174,19 +179,28 @@ public class PlayerController : MonoBehaviour
         onGround = true;
         jumpBuffering = false;
         jumpTime = 0;
+
+        StartCoroutine(SmallBox());
+        IEnumerator SmallBox() {
+            yield return new WaitForFixedUpdate();
+            smallBox.enabled = true;
+            largeBox.enabled = false;
+            rb.gravityScale = 0;
+        }
     }
 
     private void LeftGround()
     {
+        smallBox.enabled = false;
+        largeBox.enabled = true;
         StartCoroutine(CoyoteTime());
-    }
-
-    IEnumerator CoyoteTime()
-    {
-        yield return new WaitForSeconds(coyoteTime);
-        if (jumpTime > 0) yield break;
-        onGround = false;
-        jumpTime = maxJumpTime;
+        IEnumerator CoyoteTime()
+        {
+            yield return new WaitForSeconds(coyoteTime);
+            if (jumpTime > 0) yield break;
+            rb.gravityScale = fallingGravity;
+            onGround = false;
+        }
     }
 
 }

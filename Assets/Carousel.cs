@@ -16,10 +16,11 @@ public class Carousel : MonoBehaviour
     public float bufferTime = 0.1f;
 
     private Tween TweenAnchored(RectTransform t, Vector2 end) => DOTween.To(() => t.anchoredPosition, x => t.anchoredPosition = x, end, animLength);
-    private void ApplyLevelTo(RectTransform t) => t.GetComponent<Card>().ApplyLevel(GameManager.GetInstance().levels[currentLevel]);
+    private void ApplyLevelTo(RectTransform t) => t.GetComponent<Card>().ApplyLevel(GameManager.GetInstance().levels[currentLevel], currentLevel <= GameManager.GetInstance().maxLevel);
 
-    public void Start() 
+    public void OnEnable()
     {
+        currentLevel = 0;
         ApplyLevelTo(mainCard);
     }
 

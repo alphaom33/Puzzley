@@ -8,4 +8,5 @@ public class Level
 {
     public string displayName;
     public string sceneName;
+    public Sprite sprite;
 }

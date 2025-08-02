@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -19,6 +20,8 @@ public class GameManager : MonoBehaviour
     public bool canMove = true;
 
     public List<Level> levels;
+    public int maxLevel;
+    public int currentLevel;
 
     public GameObject start;
     public GameObject currentPlayer;
@@ -31,13 +34,12 @@ public class GameManager : MonoBehaviour
             return instance;
         }
 
-        GameManager tmp = Instantiate((GameObject)Resources.Load("GameManager")).GetComponent<GameManager>();
-        tmp.StartCoroutine(tmp.InitLevel());
-        DontDestroyOnLoad(tmp);
-        return tmp;
+        GameManager g = Instantiate((GameObject)Resources.Load("GameManager")).GetComponent<GameManager>();
+        g.StartCoroutine(g.InitLevel());
+        return g;
     }
 
-    public void Start()
+    public void Awake()
     {
         if (instance != null)
         {
@@ -45,6 +47,8 @@ public class GameManager : MonoBehaviour
             return;
         }
         instance = this;
+        Load();
+        DontDestroyOnLoad(gameObject);
         pauseMenuPrefab = (GameObject)Resources.Load("PauseMenu");
     }
 
@@ -76,6 +80,8 @@ public class GameManager : MonoBehaviour
 
     public void LoadLevel(int index)
     {
+        currentLevel = index;
+        maxLevel = currentLevel > maxLevel ? currentLevel : maxLevel;
         SceneManager.LoadScene(levels[index].sceneName);
         StartCoroutine(InitLevel());
     }
@@ -94,5 +100,27 @@ public class GameManager : MonoBehaviour
         Instantiate(body, currentPlayer.transform.position, Quaternion.identity);
         Destroy(currentPlayer);
         SpawnPlayer();
+    }
+
+    private void Load() 
+    {
+        try 
+        {
+            maxLevel = int.Parse(File.ReadAllText(Application.persistentDataPath + "/save"));
+        }
+        catch (IOException)
+        {
+
+        }
+    }
+
+    public void Quit() 
+    {
+        Application.Quit();
+    }
+
+    public void OnApplicationQuit() 
+    {
+        File.WriteAllText(Application.persistentDataPath + "/save", "" + maxLevel);
     }
 }

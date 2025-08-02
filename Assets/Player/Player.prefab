@@ -90,6 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295559938d0a41440949e8501de64ad2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numColliding: 0
+  lastNumColliding: 0
 --- !u!1 &1104638535047404428
 GameObject:
   m_ObjectHideFlags: 0
@@ -14953,6 +14955,7 @@ GameObject:
   - component: {fileID: 5952884666199334223}
   - component: {fileID: 7706013821491230410}
   - component: {fileID: 2719582329426575461}
+  - component: {fileID: 407634773656445600}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -15048,6 +15051,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onGround: 0
   coyoteTime: 0.1
+  smallBox: {fileID: 0}
+  largeBox: {fileID: 0}
   speed: 100
   maxSpeed: 6
   friction: 0.5
@@ -15131,7 +15136,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.10389191}
+  m_Offset: {x: 0, y: 0.061705396}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -15142,7 +15147,52 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.7922162}
+  m_Size: {x: 1, y: 0.88933}
+  m_EdgeRadius: 0
+--- !u!61 &407634773656445600
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6256979968003084052}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &7009710792759018972
 GameObject:

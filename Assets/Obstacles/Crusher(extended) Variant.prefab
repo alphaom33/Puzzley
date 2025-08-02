@@ -480,6 +480,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 5.135361
       objectReference: {fileID: 0}
+    - target: {fileID: 7538521359533175665, guid: c1627302deace7e4c9d5b354baa7be47, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 7924749952200290179, guid: c1627302deace7e4c9d5b354baa7be47, type: 3}
       propertyPath: m_Size.y
       value: 7.304129

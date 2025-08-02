@@ -70,6 +70,9 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator InitLevel()
     {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+
         canMove = true;
         for (; start == null; start = GameObject.FindWithTag("Start"))
         {
@@ -85,6 +88,8 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(levels[index].sceneName);
         StartCoroutine(InitLevel());
     }
+
+    public void LoadNextLevel() => LoadLevel(currentLevel + 1);
 
     private void SpawnPlayer()
     {

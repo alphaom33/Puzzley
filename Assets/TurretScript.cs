@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+//using UnityEditor.Experimental.GraphView; // this shot an error
 using UnityEngine;
 
 public class TurretScript : MonoBehaviour

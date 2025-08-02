@@ -2813,34 +2813,38 @@ PrefabInstance:
     - target: {fileID: 4526643218724905673, guid: d2fa193d3a36faf4aa22dc483713f9fb, type: 3}
       propertyPath: levels.Array.data[0].sprite
       value: 
-      objectReference: {fileID: -406817856992491371, guid: e37dd68531f0be74aa773fa979677300, type: 3}
+      objectReference: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
     - target: {fileID: 4526643218724905673, guid: d2fa193d3a36faf4aa22dc483713f9fb, type: 3}
       propertyPath: levels.Array.data[1].sprite
       value: 
-      objectReference: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
+      objectReference: {fileID: -406817856992491371, guid: e37dd68531f0be74aa773fa979677300, type: 3}
     - target: {fileID: 4526643218724905673, guid: d2fa193d3a36faf4aa22dc483713f9fb, type: 3}
       propertyPath: levels.Array.data[2].sprite
       value: 
+      objectReference: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
+    - target: {fileID: 4526643218724905673, guid: d2fa193d3a36faf4aa22dc483713f9fb, type: 3}
+      propertyPath: levels.Array.data[0].sceneName
+      value: OtherScene
       objectReference: {fileID: 0}
     - target: {fileID: 4526643218724905673, guid: d2fa193d3a36faf4aa22dc483713f9fb, type: 3}
       propertyPath: levels.Array.data[1].sceneName
-      value: SampleScene1
+      value: Level1(liam)
       objectReference: {fileID: 0}
     - target: {fileID: 4526643218724905673, guid: d2fa193d3a36faf4aa22dc483713f9fb, type: 3}
       propertyPath: levels.Array.data[2].sceneName
-      value: SampleScene2
+      value: Level2(liam)
       objectReference: {fileID: 0}
     - target: {fileID: 4526643218724905673, guid: d2fa193d3a36faf4aa22dc483713f9fb, type: 3}
       propertyPath: levels.Array.data[0].displayName
-      value: Beginning
+      value: mhm
       objectReference: {fileID: 0}
     - target: {fileID: 4526643218724905673, guid: d2fa193d3a36faf4aa22dc483713f9fb, type: 3}
       propertyPath: levels.Array.data[1].displayName
-      value: Second Steps
+      value: Beginning
       objectReference: {fileID: 0}
     - target: {fileID: 4526643218724905673, guid: d2fa193d3a36faf4aa22dc483713f9fb, type: 3}
       propertyPath: levels.Array.data[2].displayName
-      value: Final Triumph
+      value: Second Steps
       objectReference: {fileID: 0}
     - target: {fileID: 9126182224724426355, guid: d2fa193d3a36faf4aa22dc483713f9fb, type: 3}
       propertyPath: m_Name

@@ -180,6 +180,13 @@ MonoBehaviour:
   canDie: 0
   canMove: 1
   levels:
-  - sceneName: SampleScene
+  - displayName: Beginning
+    sceneName: Level1(liam)
+    sprite: {fileID: -406817856992491371, guid: e37dd68531f0be74aa773fa979677300, type: 3}
+  - displayName: Second Steps
+    sceneName: Level2(liam)
+    sprite: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
+  maxLevel: 0
+  currentLevel: 0
   start: {fileID: 0}
   currentPlayer: {fileID: 0}

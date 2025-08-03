@@ -56,19 +56,6 @@ public class PlayerController : MonoBehaviour
         largeBox = GetComponents<Collider2D>()[1];
     }
 
-    private void Awake()
-    {
-        StartCoroutine(EnableDeath());
-    }
-
-    private IEnumerator EnableDeath()
-    {
-        yield return new WaitForSeconds(.1f);
-        GameManager.GetInstance().canDie = true;
-        yield return new WaitWhile(() => Input.GetAxisRaw("Horizontal") != 0);
-        GameManager.GetInstance().canMove = true;
-    }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space) && !jumpBuffering && GameManager.GetInstance().canMove)

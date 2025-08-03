@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level2(Liam).unity
     guid: b9d7f98699b8ff94d85592b4077ab4b9
+  - enabled: 1
+    path: Assets/Scenes/OtherScene.unity
+    guid: 269d6bbcd4c08744e9678c1791a466d3
   m_configObjects: {}

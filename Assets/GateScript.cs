@@ -11,6 +11,6 @@ public class GateScript : MonoBehaviour
     }
     public void ButtonUnPressed()
     {
-        transform.DOMoveY(0, 1);
+        transform.DOMoveY(-4, 1);
     }
 }

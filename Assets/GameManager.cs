@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void LoadNextLevel() => LoadLevel(currentLevel + 1);
+    public void RestartLevel() => LoadLevel(currentLevel);
 
     private void SpawnPlayer()
     {

@@ -9,10 +9,6 @@ public class SceneButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Button>().onClick.AddListener(() =>
-        {
-            Time.timeScale = 1;
-            SceneManager.LoadScene("StartMenu");
-        });
+        GetComponent<Button>().onClick.AddListener(() => SceneManager.LoadScene("StartMenu"));
     }
 }

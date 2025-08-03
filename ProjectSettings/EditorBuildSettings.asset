@@ -59,4 +59,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level5(Liam).unity
     guid: b0cb4c3d33ad93c4f91dafb5808699de
+  - enabled: 1
+    path: Assets/Scenes/Victory.unity
+    guid: 327af01cd3065b44eb28592f36a9abb9
   m_configObjects: {}

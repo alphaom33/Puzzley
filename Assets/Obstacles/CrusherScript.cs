@@ -22,7 +22,7 @@ public class CrusherScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Body") || collision.gameObject)
+        if (collision.gameObject.CompareTag("Body") || !collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(Rise());
             GetComponent<AudioSource>().Play();

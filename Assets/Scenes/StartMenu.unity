@@ -2806,6 +2806,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4526643218724905673, guid: d2fa193d3a36faf4aa22dc483713f9fb, type: 3}
+      propertyPath: levels.Array.size
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526643218724905673, guid: d2fa193d3a36faf4aa22dc483713f9fb, type: 3}
+      propertyPath: levels.Array.data[15].sprite
+      value: 
+      objectReference: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
+    - target: {fileID: 4526643218724905673, guid: d2fa193d3a36faf4aa22dc483713f9fb, type: 3}
+      propertyPath: levels.Array.data[15].sceneName
+      value: Victory
+      objectReference: {fileID: 0}
+    - target: {fileID: 4526643218724905673, guid: d2fa193d3a36faf4aa22dc483713f9fb, type: 3}
+      propertyPath: levels.Array.data[15].displayName
+      value: Second Steps
+      objectReference: {fileID: 0}
     - target: {fileID: 9126182224724426355, guid: d2fa193d3a36faf4aa22dc483713f9fb, type: 3}
       propertyPath: m_Name
       value: GameManager

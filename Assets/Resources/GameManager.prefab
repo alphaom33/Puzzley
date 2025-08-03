@@ -380,7 +380,7 @@ Canvas:
   m_GameObject: {fileID: 4318287786232392664}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -392,7 +392,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_TargetDisplay: 0
 --- !u!114 &8005064643765881341
 MonoBehaviour:
@@ -632,13 +632,49 @@ MonoBehaviour:
   canMove: 1
   levels:
   - displayName: mhm
-    sceneName: OtherScene
+    sceneName: Level1(liam)
     sprite: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
   - displayName: Beginning
-    sceneName: Level1(liam)
+    sceneName: Level2(Liam)
     sprite: {fileID: -406817856992491371, guid: e37dd68531f0be74aa773fa979677300, type: 3}
   - displayName: Second Steps
-    sceneName: Level2(liam)
+    sceneName: Level3(Liam)
+    sprite: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
+  - displayName: Second Steps
+    sceneName: Level4(Liam)
+    sprite: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
+  - displayName: Second Steps
+    sceneName: Level5(Liam)
+    sprite: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
+  - displayName: Second Steps
+    sceneName: Level6(Liam)
+    sprite: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
+  - displayName: Second Steps
+    sceneName: Level7(Liam)
+    sprite: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
+  - displayName: Second Steps
+    sceneName: Level8(Liam)
+    sprite: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
+  - displayName: Second Steps
+    sceneName: Level9(Liam)
+    sprite: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
+  - displayName: Second Steps
+    sceneName: Level10(Liam)
+    sprite: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
+  - displayName: Second Steps
+    sceneName: Level11(Liam)
+    sprite: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
+  - displayName: Second Steps
+    sceneName: Level12(Liam)
+    sprite: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
+  - displayName: Second Steps
+    sceneName: Level13(Liam)
+    sprite: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
+  - displayName: Second Steps
+    sceneName: Level14(Liam)
+    sprite: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
+  - displayName: Second Steps
+    sceneName: Level15(Liam)
     sprite: {fileID: 4670795634607524775, guid: 0c7930a8eff86b545b7df0da0ba5dcfd, type: 3}
   maxLevel: 0
   currentLevel: 0

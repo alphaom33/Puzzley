@@ -18,9 +18,10 @@ public class TurretScript : MonoBehaviour
         if (CanShoot)
         {
             CanShoot = false;
-          var ShotBullet = Instantiate(Bullet, SpawnPoint.transform.position, SpawnPoint.rotation, SpawnPoint);
+            var ShotBullet = Instantiate(Bullet, SpawnPoint.transform.position, SpawnPoint.rotation, SpawnPoint);
             ShotBullet.GetComponent<BulletScript>().Direction = Direction;
             ShotBullet.GetComponent<BulletScript>().BulletSpeed = Speed;
+            GetComponent<AudioSource>().Play();
             StartCoroutine(Timer());
         }
     }

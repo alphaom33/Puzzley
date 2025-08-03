@@ -25,22 +25,20 @@ public class CrusherScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Body") || collision.gameObject.CompareTag("Ground"))
         {
             StartCoroutine(Rise());
+            GetComponent<AudioSource>().Play();
         }
         else if (collision.gameObject.CompareTag("Player") && collision.transform.position.y < transform.position.y)
         {
             GameManager.GetInstance().KillPlayer();
         }
-        
     }
 
         private IEnumerator Crush()
         {
-
             yield return new WaitForSeconds(CrusherInterval); // time it stays up before coming down to crush
-
-
             Rigidbody2D.bodyType = RigidbodyType2D.Dynamic; // allows the crusher to fall down
         }
+
         private IEnumerator Rise()
         {
             yield return new WaitForSeconds(CrusherTimeDown); // keeps the crush down for as long as you want

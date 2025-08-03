@@ -8,10 +8,15 @@ public class GroundCheck : MonoBehaviour
     private bool CollidingPlatform(Collider2D collision) => collision.CompareTag("Ground") || collision.CompareTag("Body");
     public int numColliding;
     public int lastNumColliding;
+    private PlayerController playerController;
+
+    public void Start() {
+        playerController = GetComponentInParent<PlayerController>();
+    }
 
     private void FixedUpdate() {
         if (numColliding == 0 && lastNumColliding > 0) StartCoroutine(CheckMessage("LeftGround", () => numColliding == 0));
-        else if (numColliding > 0 && lastNumColliding == 0) StartCoroutine(CheckMessage("HitGround", () => numColliding != 0));
+        else if (numColliding > 0 && (lastNumColliding == 0 || !playerController.onGround)) StartCoroutine(CheckMessage("HitGround", () => numColliding != 0));
         lastNumColliding = numColliding;
     }
 

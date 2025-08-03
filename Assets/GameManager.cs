@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                KillPlayer();
+                LoadLevel(currentLevel);
             }
 
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
         canMove = false;
 
         GameObject newBody = Instantiate(body, currentPlayer.transform.position, Quaternion.identity);
-        newBody.transform.localScale = new Vector2(Mathf.Sign(currentPlayer.transform.localScale.x), 1);
+        newBody.transform.localScale = new Vector2(Mathf.Sign(currentPlayer.GetComponent<PlayerController>().child.localScale.x), 1);
         Destroy(currentPlayer);
 
         Time.timeScale = 0;

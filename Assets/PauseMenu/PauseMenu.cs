@@ -10,7 +10,7 @@ public class PauseMenu : MonoBehaviour
     private bool leaving;
 
     private Vector2 CalcStartPos() => Vector2.up * (GetComponentInChildren<RectTransform>().rect.height + child.rect.height) / 2;
-    private Tween TweenAnchored(Vector2 end) => DOTween.To(() => child.anchoredPosition, x => child.anchoredPosition = x, end, 1).SetUpdate(UpdateType.Normal, true);
+    private Tween TweenAnchored(Vector2 end) => DOTween.To(() => child.anchoredPosition, x => child.anchoredPosition = x, end, 0.5f).SetUpdate(UpdateType.Normal, true);
 
     void Start()
     {
@@ -35,9 +35,18 @@ public class PauseMenu : MonoBehaviour
         {
             Tween leave = TweenAnchored(CalcStartPos());
             yield return leave.WaitForCompletion();
-            Time.timeScale = 1;
-            GameManager.GetInstance().canMove = true;
             Destroy(gameObject);
         }
+    }
+
+    public void OnDestroy() 
+    {
+        Time.timeScale = 1;
+        GameManager.GetInstance().canMove = true;
+    }
+
+    public void Restart() 
+    {
+        GameManager.GetInstance().RestartLevel();
     }
 }
